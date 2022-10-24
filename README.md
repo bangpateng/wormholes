@@ -7,6 +7,17 @@
   <img height="250" height="250" src="https://user-images.githubusercontent.com/38981255/197592560-3918c8df-c20b-4dd7-89f6-ea76a3f0f89d.png">
 </p>
 
+Dokumen Official :
+> https://www.wormholes.com/docs/Install/index.html
+
+## Perangkat Keras
+
+|  Komponen |  Persyaratan Minimum |
+| ------------ | ------------ |
+| CPU  | Main frequency 2.9GHz, 4-core or above  |
+| RAM | 8 GB  |
+| Penyimpanan  | 50 GB HDD |
+
 # WormholesChain Mirror Universe NO.2 Test Event SOP
 
 ## 1. Pastikan Kalian Sudah Memiliki VPS
