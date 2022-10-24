@@ -16,7 +16,7 @@ Dokumen Official :
 | ------------ | ------------ |
 | CPU  | Main frequency 2.9GHz, 4-core or above  |
 | RAM | 8 GB  |
-| Penyimpanan  | 50 GB HDD |
+| Penyimpanan  | 500 GB HDD |
 
 # WormholesChain Mirror Universe NO.2 Test Event SOP
 
