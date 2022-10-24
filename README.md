@@ -124,6 +124,11 @@ Nanti Akan Muncul Tampilan Seperti di Bawah ini, Jangan Lupa Untuk di Screenshoo
 
 ### Send Email
 
+<p align="center">
+  <img height="auto" height="auto" src="https://user-images.githubusercontent.com/38981255/197600515-c8d61ff3-e148-405b-aa03-590a37bdf402.png">
+</p>
+
+
 Kirimkan Screenshoot nya dan Kirimkan Address Wormholes nya Kirim ke Email *market@wormholes.com*
 
 *SELESAI.. UNTUK LANJUTAN TUNGGU DAPAT EMAIL.. PANTAU DI CHANNEL https://t.me/bangpateng_airdrop*
