@@ -66,9 +66,9 @@ https://gleam.io/1nbP9/mirror-universe-no2
 - Join Discordnya : https://discord.gg/4Q5x8r4a
 - Verification dan Klik Get Validator Role
 
--IP isi = Dengan IP VPS Kalian
--Get WormholesChain Address = Isi Dengan Address yg Sudah Kalian Import di https://www.limino.com/#/wallet
--Done
+- IP isi = Dengan IP VPS Kalian
+- Get WormholesChain Address = Isi Dengan Address yg Sudah Kalian Import di https://www.limino.com/#/wallet
+- Done
 
 # 3. Kirim Email Ke Email Admin Untuk Mendapatkan Token Faucet 70.000 ERB Untuk Stake
 
