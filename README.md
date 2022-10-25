@@ -10,6 +10,9 @@
 Dokumen Official :
 > https://www.wormholes.com/docs/Install/index.html
 
+Detail Event :
+> https://medium.com/wormholeschain-network/mirror-universe-no-2-e644c69e4e84
+
 ## Perangkat Keras
 
 |  Komponen |  Persyaratan Minimum |
