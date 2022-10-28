@@ -187,3 +187,8 @@ Anda Akan Melihat Seperti Gambar di Bawah ini :
   <img height="auto" height="auto" src="https://user-images.githubusercontent.com/38981255/198654914-6cb8b0ed-08db-4ab0-b377-ab220d636572.png">
 </p>
 
+TUTOR MINER TUNGGU FAUCET Di BAGIIN 
+
+Aset uji akan memulai proses pelepasan ketika ketinggian blok mencapai 140000. Setelah menyelesaikan distribusi aset uji,
+
+kami akan mengirimkan email konfirmasi dan email yang berisi proses penyiapan lengkap. Harap jaga agar kotak surat Anda tetap terbuka selama acara.
