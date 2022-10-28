@@ -25,7 +25,12 @@ Detail Event :
 
 ## 1. Pastikan Kalian Sudah Memiliki VPS
 
-### Install & Jalankan Node
+### Install Docker
+
+<p align="center">
+  <img height="auto" height="auto" src="https://user-images.githubusercontent.com/38981255/198647832-190633a4-01b9-4bd3-9c03-9c90e7a00915.png">
+</p>
+
 ```
 sudo apt-get update && apt-get install wget
 ```
@@ -42,96 +47,96 @@ curl -SL https://github.com/docker/compose/releases/download/v2.6.1/docker-compo
 chmod +x ~/.docker/cli-plugins/docker-compose
 sudo chown $USER /var/run/docker.sock
 ```
-```
-docker pull wormholestech/wormholes:v1
-```
-```
-docker run -d -p 30303:30303 -p 8545:8545 --name wormholes wormholestech/wormholes:v1
-```
+
+## Buat Bash
 
 <p align="center">
-  <img height="auto" height="auto" src="https://user-images.githubusercontent.com/38981255/197593093-de2b889e-9aaf-42ec-914f-25308359f592.png">
+  <img height="auto" height="auto" src="https://user-images.githubusercontent.com/38981255/198648134-11bb6769-5dd5-41e4-abf0-bf6e1618d950.png">
 </p>
 
-### LALU JALANKAN
 ```
-docker exec -it wormholes /usr/bin/cat /wm/.wormholes/wormholes/nodekey
+nano wormholes_install.sh
 ```
-Copy dan Import kunci pribadi 64-Bit Yang di Peroleh Saat Menjalankan Perintah di Atas dan Import ke WORMHOLES WALLET (Buat Wallet di : https://www.limino.com/#/wallet
 
-## 2. Daftar Gleam Isi Data
-
-https://gleam.io/1nbP9/mirror-universe-no2
-
-- Join Discordnya : https://discord.gg/4Q5x8r4a
-- Verification dan Klik Get Validator Role
-
-- IP isi = Dengan IP VPS Kalian
-- Get WormholesChain Address = Isi Dengan Address yg Sudah Kalian Import di https://www.limino.com/#/wallet
-- Done
-
-# 3. Kirim Email Ke Email Admin Untuk Mendapatkan Token Faucet 70.000 ERB Untuk Stake
-
-Yang Pertama Jalankan Perintah di Bawah Ini Untuk Melihat Status Node, Paste Saja di Terminal dan Enter
-
-<p align="center">
-  <img height="auto" height="auto" src="https://user-images.githubusercontent.com/38981255/197594295-41a5d0dd-ab41-4ccd-9499-71039b75c497.png">
-</p>
+Masukan Dengan Script di Bawah Ini :
 
 ```
 #!/bin/bash
-function info(){
-     cn=0
-     while true
-     do
-             echo "$cn second."
-             echo "node $1"
-             rs=`curl -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_blockNumber","id":64}' https://api.wormholestest.com 2>/dev/null`
-             blockNumbers=$(parse_json $rs "result")
-             echo "Block height of the whole network: $((16#${blockNumbers:2}))"
-             rs1=`curl -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"net_peerCount","id":64}' 127.0.0.1:$1 2>/dev/null`
-             count=$(parse_json $rs1 "result")
-             echo "Number of node connections: $((16#${count:2}))"
-             rs2=`curl -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_blockNumber","id":64}' 127.0.0.1:$1 2>/dev/null`
-             blckNumber=$(parse_json $rs2 "result")
-             echo "Block height of the current peer: $((16#${blckNumber:2}))"
-             sleep 5
-             clear
-             let cn+=5
-     done
-}
+#check docker cmd
+which docker >/dev/null 2>&1
+if  [ $? -ne 0 ] ; then
+     echo "docker not found, please install first!"
+     echo "ubuntu:sudo apt install docker.io -y"
+     echo "centos:yum install  -y docker-ce "
+     echo "fedora:sudo dnf  install -y docker-ce"
+     exit
+fi
+#check docker service
+docker ps > /dev/null 2>&1
+if [ $? -ne 0 ] ; then
 
-function parse_json(){
-      if [[ $# -gt 1 ]] && [[ $1 =~ $2 ]];then
-         echo "${1//\"/}"|sed "s/.*$2:\([^,}]*\).*/\1/"
-      else
-         echo "0x0"
-     fi
-}
+     echo "docker service is not running! you can use command start it:"
+     echo "sudo service docker start"
+     exit
+fi
 
-function main(){
-     if [[ $# -eq 0 ]];then
-             info 8545
+docker stop wormholes > /dev/null 2>&1
+docker rm wormholes > /dev/null 2>&1
+docker rmi wormholestech/wormholes:v1 > /dev/null 2>&1
+
+if [ -d /wm/.wormholes/keystore ]; then
+   read -p "Whether to clear the Wormholes blockchain data history, if yes, press the “y” button, and if not, click “enter.”：" xyz
+   if [ "$xyz" = 'y' ]; then
+         cp /wm/.wormholes/wormholes/nodekey /wm/nodekey
+         rm -rf /wm/.wormholes
+         mkdir -p /wm/.wormholes/wormholes
+         mv /wm/nodekey /wm/.wormholes/wormholes/
+   else
+         echo "Do not clear"
+   fi
+else
+   read -p "Please import your private key：" ky
+fi
+
+if [ -n "$ky" ]; then
+     if [ ${#ky} -eq 64 ];then
+             mkdir -p /wm/.wormholes/wormholes
+             echo $ky > /wm/.wormholes/wormholes/nodekey
+     elif [ ${#ky} -eq 66 ] && ([ ${ky:0:2} == "0x" ] || [ ${ky:0:2} == "0X" ]);then
+             mkdir -p /wm/.wormholes/wormholes
+             echo ${ky:2:64} > /wm/.wormholes/wormholes/nodekey
      else
-             info $1
+             echo "the nodekey format is not correct"
+             exit -1
      fi
-}
+fi
 
-main "$@"
+docker run -id -p 30303:30303 -p 8545:8545 -v /wm/.wormholes:/wm/.wormholes --name wormholes wormholestech/wormholes:v1
+
+echo "Your private key is:"
+sleep 6
+docker exec -it wormholes /usr/bin/cat /wm/.wormholes/wormholes/nodekey
 ```
-Nanti Akan Muncul Tampilan Seperti di Bawah ini, Jangan Lupa Untuk di Screenshoot (Kita Membutuhkan Untuk Kirim Email ke Admin)
+
+## Eksekusi Bash Script nya
 
 <p align="center">
-  <img height="auto" height="auto" src="https://user-images.githubusercontent.com/38981255/197594574-484b47a4-e661-48ee-9d4b-339157d632a9.png">
+  <img height="auto" height="auto" src="https://user-images.githubusercontent.com/38981255/198648457-c5bb09fd-3418-4e75-a3e9-c9e2947ff134.png">
 </p>
 
-### Send Email
+```
+bash ./wormholes_install.sh
+```
+- Masukan Private Key Yang Sebelumnya Sudah Kalian Miliki Ambil di Website : https://www.limino.com/#/wallet
+- Setingan > Security Dan Privacy
+- Masukan Katasandi Kalian
+- Ambil Private Key nya
+- Paste ke Terminal VPS nya
+- Enter dan Biarkan Docker Running
 
-<p align="center">
-  <img height="auto" height="auto" src="https://user-images.githubusercontent.com/38981255/197600515-c8d61ff3-e148-405b-aa03-590a37bdf402.png">
-</p>
+## Check Status Node
 
+```
+curl -X POST -H 'Content-Type:application/json' --data '{"jsonrpc":"2.0","method":"net_peerCount","id":1}' http://127.0.0.1:8545
+```
 
-Kirimkan Screenshoot nya dan Kirimkan Address Wormholes nya Kirim ke Email *market@wormholes.com*
-
-*SELESAI.. UNTUK LANJUTAN TUNGGU DAPAT EMAIL.. PANTAU DI CHANNEL https://t.me/bangpateng_airdrop*
