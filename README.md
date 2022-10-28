@@ -23,8 +23,6 @@ Detail Event :
 
 # WormholesChain Mirror Universe NO.2 Test Event SOP
 
-## 1. Pastikan Kalian Sudah Memiliki VPS
-
 ### Install Docker
 
 <p align="center">
