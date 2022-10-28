@@ -116,6 +116,8 @@ sleep 6
 docker exec -it wormholes /usr/bin/cat /wm/.wormholes/wormholes/nodekey
 ```
 
+SAVE Tekan CTRL X Y ENTER
+
 ## Eksekusi Bash Script nya
 
 <p align="center">
